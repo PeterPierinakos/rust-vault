@@ -7,3 +7,6 @@ web/target/
 # More information here https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html
 server/Cargo.lock
 web/Cargo.lock
+
+# Diesel generated
+server/src/schema.rs
