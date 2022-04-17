@@ -10,3 +10,6 @@ web/Cargo.lock
 
 # Diesel generated
 server/src/schema.rs
+
+# Yew binary files
+web/dist/

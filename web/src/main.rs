@@ -1,3 +1,7 @@
+use yew::prelude::*;
+use yew_router::prelude::*;
+use website::App;
+
 fn main() {
-    println!("Hello, world!");
+    yew::start_app::<App>();
 }
