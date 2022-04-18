@@ -7,9 +7,9 @@ use server::structs::app_state::AppState;
 use server::routes::authentication::*;
 use server::routes::static_html::*;
 use server::routes::secret::*;
+use server::routes::files::*;
 use actix_session::{SessionMiddleware, storage::RedisActorSessionStore};
 use actix_web::cookie::Key;
-use http::StatusCode;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -22,6 +22,9 @@ async fn main() -> std::io::Result<()> {
     
     HttpServer::new(move || {
         App::new()
+            .app_data(web::Data::new(AppState {
+                pool: establish_connection(),
+            }))
             .wrap(
                 SessionMiddleware::new(
                     RedisActorSessionStore
@@ -32,18 +35,17 @@ async fn main() -> std::io::Result<()> {
                                     ADRESS[1],
                                     ADRESS[2],
                                     ADRESS[3],
-                            ), PORT)),
+                            ), REDIS_PORT)),
                     secret_redis_key.clone()
                 )
             )
-            .app_data(web::Data::new(AppState {
-                pool: establish_connection(),
-            }))
             .route("/", web::get().to(index_html))
             .route("/login", web::get().to(login_html))
+            .route("/upload", web::get().to(upload_html))
             .route("/api/signup", web::post().to(signup))
             .route("/api/login", web::get().to(login))
             .route("/api/delete", web::delete().to(delete_account))
+            .route("/api/upload", web::post().to(upload_text))
     })
         .bind(format!("{}:{}", format!("{}.{}.{}.{}", 
                                         ADRESS[0],
