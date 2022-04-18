@@ -1,7 +1,7 @@
 use actix_web::{Responder, web, HttpResponse};
-use crate::schema::users;
+use crate::schema::*;
 use crate::structs::app_state::AppState;
-use crate::models::user::{User, NewUser, UserForm};
+use crate::models::user::*;
 use diesel::prelude::*;
 use crate::utils::db::pg_pool_handler;
 use http::StatusCode;
@@ -73,7 +73,7 @@ pub async fn login(
         }
     }
 
-    session.insert("id", 1).unwrap();
+    session.insert("id", user.id).unwrap();
 
     HttpResponse::build(StatusCode::OK)
         .body("Successfully logged in")
