@@ -12,6 +12,7 @@ use argon2::{
     },
     Argon2
 };
+use actix_session::Session;
 
 pub async fn signup(state: web::Data<AppState>, req: web::Form<UserForm>) -> impl Responder {
     let pool = &state.pool;
@@ -41,8 +42,9 @@ pub async fn signup(state: web::Data<AppState>, req: web::Form<UserForm>) -> imp
 }
 
 pub async fn login(
+    session: Session,
     state: web::Data<AppState>, 
-    req: web::Form<UserForm>,
+    req: web::Query<UserForm>,
 ) -> impl Responder {
     let pool = &state.pool;
     let connection = pg_pool_handler(&pool).unwrap();
@@ -70,6 +72,8 @@ pub async fn login(
                 .body("Incorrect password")
         }
     }
+
+    session.insert("id", 1).unwrap();
 
     HttpResponse::build(StatusCode::OK)
         .body("Successfully logged in")
