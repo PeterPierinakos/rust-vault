@@ -1,12 +1,9 @@
 use actix_session::Session;
 
 pub fn verify_session(session: &Session) -> bool {
-    let id = session.get::<i32>("id");
-    match id {
-        Ok(_id) => {
-            return true;
-        }
-        Err(_err) => {}
+    if let Some(id) = session.get::<i32>("id").unwrap() {
+        return true;
+    } else {
+        return false;
     }
-    false
 }
