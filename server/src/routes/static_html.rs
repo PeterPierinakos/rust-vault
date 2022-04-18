@@ -13,3 +13,8 @@ pub async fn login_html() -> impl Responder {
         .body(include_str!("../../../web/static/login.html"))
 }
 
+pub async fn upload_html() -> impl Responder {
+    HttpResponse::build(StatusCode::OK)
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../../../web/static/upload.html"))
+}
