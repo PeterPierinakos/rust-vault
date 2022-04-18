@@ -1,5 +1,6 @@
 use crate::schema::*;
 use serde::{Serialize, Deserialize};
+use diesel::pg::data_types::PgNumeric;
 
 #[derive(Deserialize, Serialize)]
 pub struct TextForm {
@@ -9,12 +10,13 @@ pub struct TextForm {
 #[derive(Queryable)]
 pub struct Text {
     pub id: i32,
-    pub username: String,
-    pub password: String,
+    pub owner: PgNumeric,
+    pub content: String,
 }
 
 #[derive(Insertable)]
 #[table_name="texts"]
 pub struct NewText {
+    pub owner: PgNumeric,
     pub content: String,
 }
