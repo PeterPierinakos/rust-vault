@@ -1,5 +1,5 @@
-use actix_web::{HttpServer, HttpResponse, App, web};
-use diesel::r2d2::State;
+use actix_web::{HttpServer, App, web};
+
 use server::config::*;
 use log::info;
 use server::utils::db::{establish_connection};
@@ -41,7 +41,9 @@ async fn main() -> std::io::Result<()> {
             )
             .route("/", web::get().to(index_html))
             .route("/login", web::get().to(login_html))
+            .route("/signup", web::get().to(signup_html))
             .route("/upload", web::get().to(upload_html))
+            .route("/home", web::get().to(home_html))
             .route("/api/signup", web::post().to(signup))
             .route("/api/login", web::get().to(login))
             .route("/api/delete", web::delete().to(delete_account))
