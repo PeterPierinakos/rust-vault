@@ -2,7 +2,7 @@ use actix_web::{Responder, HttpResponse, web};
 
 use http::StatusCode;
 use actix_session::Session;
-use crate::utils::session_utils::verify_session;
+use crate::utils::verify::verify_session;
 use crate::schema::*;
 use crate::models::text::*;
 
