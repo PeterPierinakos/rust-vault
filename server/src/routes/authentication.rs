@@ -13,8 +13,16 @@ use argon2::{
     Argon2
 };
 use actix_session::Session;
+use crate::utils::verify::is_valid_auth_string;
 
 pub async fn signup(state: web::Data<AppState>, req: web::Form<UserForm>) -> impl Responder {
+    let is_valid = is_valid_auth_string(&req.username);
+
+    if !is_valid {
+        return HttpResponse::build(StatusCode::BAD_REQUEST)
+            .body("Invalid username input");
+    }
+
     let pool = &state.pool;
     let connection = pg_pool_handler(&pool).unwrap();
 
