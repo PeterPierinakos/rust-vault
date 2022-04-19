@@ -1,5 +1,6 @@
 CREATE TABLE texts (
 	id SERIAL PRIMARY KEY,
-	owner NUMERIC NOT NULL,
+	text_name VARCHAR (30) NOT NULL,
+	owner INTEGER NOT NULL,
 	content VARCHAR (1000) NOT NULL
 );
