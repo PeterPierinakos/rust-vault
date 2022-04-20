@@ -1,6 +1,10 @@
 // Global variables for configuration listed here
 
-pub const ADRESS: [i32; 4] = [127, 0, 0, 1];
+/*
+Development environment: 127.0.0.1
+Production environment: 0.0.0.0
+*/
+pub const ADRESS: [i32; 4] = [0, 0, 0, 0];
 pub const PORT: i32 = 8000;
 
 pub const REDIS_ADRESS: [i32; 4] = [127, 0, 0, 1];
