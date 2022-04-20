@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<head>
+<!DOCTYPE html> <head>
 	<meta charset="utf-8">
 	<title>RustVault - Login</title>
 </head>
 <body>
 	<h1>Login</h1>
-	<div><code>iframe backend output</code></div>
-	<iframe name="dummyframe" id="dummyframe"></iframe>
 	<form action="api/login" target="dummyframe" method="get">
 		<label for="username">Username:</label>
 		<input type="text" id="username" required name="username"><br><br>
   		<label for="password">Password:</label>
 		<input type="password" id="password" required name="password"><br><br>
-  		<input type="submit" value="Login">
+		<input type="submit" value="Login"><br></br>
 	</form>
+	<code>iframe backend output</code>
+	<iframe name="dummyframe" id="dummyframe"></iframe>
 </body>
