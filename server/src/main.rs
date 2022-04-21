@@ -59,6 +59,7 @@ async fn main() -> std::io::Result<()> {
             .route("/signup", web::get().to(signup_html))
             .route("/upload", web::get().to(upload_html))
             .route("/home", web::get().to(home_html))
+            .route("/api/get_text", web::get().to(get_text))
             .route("/api/signup", web::post().to(signup))
             .route("/api/login", web::get().to(login))
             .route("/api/delete", web::delete().to(delete_account))

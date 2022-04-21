@@ -36,3 +36,31 @@ pub async fn upload_text(state: web::Data<AppState>, session: Session, req: web:
     HttpResponse::build(StatusCode::OK)
         .body("Success")
 }
+
+pub async fn get_text(state: web::Data<AppState>, session: Session, req: web::Query<SmallTextForm>) -> impl Responder {
+    let pool = &state.pool;
+    let connection = pg_pool_handler(&pool).unwrap();
+
+    let res = verify_session(&session);
+    if res == false {
+        return HttpResponse::build(StatusCode::UNAUTHORIZED)
+            .body("Not authenticated");
+    }
+
+    let text = texts::table.filter(texts::text_name.eq(&req.text_name))
+        .get_result::<Text>(&connection);
+    let text = match text {
+        Ok(text) => text,
+        Err(_err) => {
+            return HttpResponse::build(StatusCode::NO_CONTENT)
+                .body("Note not found");
+        }
+    };
+
+    if session.get::<i32>("id").unwrap().unwrap() != text.owner {
+        return HttpResponse::build(StatusCode::UNAUTHORIZED)
+            .body("You do not own this note");
+    }
+    
+    HttpResponse::Ok().body("Success")
+}

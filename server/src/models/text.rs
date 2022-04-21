@@ -8,7 +8,12 @@ pub struct TextForm {
     pub content: String,
 }
 
-#[derive(Queryable)]
+#[derive(Deserialize, Serialize, Debug)]
+pub struct SmallTextForm {
+    pub text_name: String,
+}
+
+#[derive(Queryable, Debug)]
 pub struct Text {
     pub id: i32,
     pub text_name: String,
