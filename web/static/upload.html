@@ -5,11 +5,13 @@
 </head>
 <body>
 	<h1>Upload Note</h1>
-	<form action="api/upload" enctype="application/x-www-form-urlencoded;charset=UTF-8" method="post">
+	<form action="api/upload" target="dummyframe" enctype="application/x-www-form-urlencoded;charset=UTF-8" method="post">
 		<label for="content">Content:</label>
 		<label for="text_name">Note Title:</label>
 		<input type="text_name" id="text_name" required name="text_name"><br><br>
 		<textarea id="content" required name="content" rows="4" cols="50">Enter note here</textarea><br><br>
 		<input type="submit" value="Upload">
 	</form>
+	<code>iframe backend output</code><br></br>
+	<iframe name="dummyframe" id="dummyframe"></iframe>
 </body>

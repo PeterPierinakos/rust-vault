@@ -6,11 +6,11 @@
 <body>
 	<h1>Home</h1>
 	<h2>Retrieve note</h2>
-	<form>
+	<form action="api/get_text" target="dummyframe">
+		<label for="text_name">Enter desired note name:</label>
+		<input id="text_name" name="text_name">
 		<input type="submit" value="Retrieve note">
 	</form>
-	<h2>Retrieve all notes</h2>
-	<form>
-		<input type="submit" value="Retrieve all notes">
-	</form>
+	<code>iframe backend output</code><br></br>
+	<iframe name="dummyframe" id="dummyframe"></iframe>
 </body>
