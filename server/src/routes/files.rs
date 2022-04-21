@@ -62,5 +62,5 @@ pub async fn get_text(state: web::Data<AppState>, session: Session, req: web::Qu
             .body("You do not own this note");
     }
     
-    HttpResponse::Ok().body("Success")
+    HttpResponse::Ok().body(text.content)
 }
