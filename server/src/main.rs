@@ -24,7 +24,7 @@ async fn main() -> std::io::Result<()> {
     
     let secret_redis_key = Key::generate();
 
-    let client = redis::Client::open("redis://127.0.0.1/").unwrap();
+    let client = redis::Client::open("redis://0.0.0.0/").unwrap();
     let manager = ConnectionManager::new(client).await.unwrap();
     let backend = RedisBackend::builder(manager).build();        
 
@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
             }))
             .wrap(rate_middleware)
             .wrap(
-                SessionMiddleware::new(
+                SessionMiddleware::builder(
                     RedisActorSessionStore
                         ::new(
                             format!("{}:{}", 
@@ -53,6 +53,8 @@ async fn main() -> std::io::Result<()> {
                             ), REDIS_PORT)),
                     secret_redis_key.clone()
                 )
+                .cookie_secure(false)
+                .build()
             )
             .route("/", web::get().to(index_html))
             .route("/login", web::get().to(login_html))
